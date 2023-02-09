@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Translator.Data;
+using Translator.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<TranslatorContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TranslatorContext") ?? throw new InvalidOperationException("Connection string 'TranslatorContext' not found.")));
@@ -9,6 +11,13 @@ builder.Services.AddDbContext<TranslatorContext>(options =>
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
