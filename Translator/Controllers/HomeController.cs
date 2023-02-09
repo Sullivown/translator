@@ -1,23 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Text.Encodings.Web;
+using Translator.Data;
 using Translator.Models;
 
 namespace Translator.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly TranslatorContext _context;
+
+        public HomeController(TranslatorContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             ViewData["Message"] = "Hello, this is a test message!";
-            return View();
+            return _context.Translation != null ?
+                          View(await _context.Translation.ToListAsync()) :
+                          Problem("Entity set 'TranslatorContext.Translation'  is null.");
+
         }
 
         public IActionResult Privacy()

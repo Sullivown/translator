@@ -1,5 +1,8 @@
-﻿@{
+﻿@model IEnumerable<Translator.Models.Translation>
+
+@{
     ViewData["Title"] = "Home Page";
+
 }
 
 <div class="text-center">
@@ -7,4 +10,14 @@
     <h2>What would you like to translate today?</h2>
 
     <p>@ViewData["Message"]</p>
+
+    <form>
+        <select>
+            @foreach (var item in Model)
+            {
+                <option value="@Html.DisplayFor(modelItem => item.Url)">@Html.DisplayFor(modelItem => item.Name)</option>
+            }
+        </select>
+        <textarea></textarea>
+    </form>
 </div>
