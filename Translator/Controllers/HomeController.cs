@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Encodings.Web;
 using Translator.Data;
 using Translator.Models;
+using Newtonsoft.Json;
 
 namespace Translator.Controllers
 {
@@ -42,7 +43,14 @@ namespace Translator.Controllers
 
                 string textResult = await response.Content.ReadAsStringAsync();
 
-                ViewData["translatedText"] = textResult;
+                var result = JsonConvert.DeserializeObject<dynamic>(textResult);
+
+                if (result?.error)
+                {
+                    ViewData["translatedText"] = result?.error.message;
+                }
+
+                ViewData["translatedText"] = result?.content.translated;
             }
 
             // Make API call
