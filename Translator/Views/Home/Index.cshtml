@@ -10,14 +10,17 @@
     <h2>What would you like to translate today?</h2>
 
     <p>@ViewData["Message"]</p>
+    <p>@ViewData["TranslatorType"]</p>
+    <p>@ViewData["OriginalText"]</p>
 
-    <form>
-        <select>
+    <form method="post">
+        <select name="translatorType">
             @foreach (var item in Model)
             {
-                <option value="@Html.DisplayFor(modelItem => item.Url)">@Html.DisplayFor(modelItem => item.Name)</option>
+                <option value=@item.Url>@item.Name</option>
             }
         </select>
-        <textarea></textarea>
+        <textarea name="originalText"></textarea>
+        <button type="submit">Translate</button>
     </form>
 </div>

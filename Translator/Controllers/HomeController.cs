@@ -26,9 +26,14 @@ namespace Translator.Controllers
 
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public async Task<IActionResult> Index(IFormCollection collection)  
         {
-            return View();
+            ViewData["OriginalText"] = collection["originalText"];
+            ViewData["TranslatorType"] = collection["translatorType"];
+            return _context.Translation != null ?
+               View(await _context.Translation.ToListAsync()) :
+               Problem("Entity set 'TranslatorContext.Translation'  is null.");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
