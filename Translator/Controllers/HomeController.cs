@@ -16,7 +16,7 @@ namespace Translator.Controllers
 
         public IActionResult Index()
         {
-            ViewData["Message"] = "Hello, this is a message!";
+            ViewData["Message"] = "Hello, this is a test message!";
             return View();
         }
 
