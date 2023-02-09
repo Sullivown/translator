@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text.Encodings.Web;
 using Translator.Data;
 using Translator.Models;
@@ -31,6 +33,19 @@ namespace Translator.Controllers
         {
             ViewData["OriginalText"] = collection["originalText"];
             ViewData["TranslatorType"] = collection["translatorType"];
+            
+            using (var client = new HttpClient())
+            {
+                var uri = new Uri(collection["translatorType"] + "?text=" + collection["originalText"]);
+
+                var response = await client.GetAsync(uri);
+
+                string textResult = await response.Content.ReadAsStringAsync();
+
+                ViewData["translatedText"] = textResult;
+            }
+
+            // Make API call
             return _context.Translation != null ?
                View(await _context.Translation.ToListAsync()) :
                Problem("Entity set 'TranslatorContext.Translation'  is null.");
