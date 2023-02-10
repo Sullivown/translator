@@ -1,4 +1,16 @@
 ﻿@model IEnumerable<Translator.Models.Translation>
+@section Scripts
+    {
+    <script>
+        function handleCopyClick() {
+            const textArea = document.querySelector('#translatedText')
+            textArea.select();
+            textArea.setSelectionRange(0, 9999);
+
+            navigator.clipboard.writeText(textArea.value);
+        }
+    </script>
+}
 
 @{
     ViewData["Title"] = "Home Page";
@@ -6,16 +18,14 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Translator</h1>
-    <h2>What would you like to translate today?</h2>
+    <h1 class="display-2">Translator</h1>
+    <p class="lead">What would you like to translate today?</p>
 
-    <div class="container">
+    <div class="container mt-5">
         <form method="post">
             <div class="form-group row justify-content-md-center">
-                <div class="col-2">
-                    <label for="translator">Choose Translator:</label>
-                </div>
-                <div class="col-2">
+                <div class="col-sm-6 col-lg-3">
+                    <label for="translator" class="form-label">Choose Translator:</label>
                     <select id="translator" name="translatorUrl" class="form-control">
                         @foreach (var item in Model)
                         {
@@ -24,20 +34,22 @@
                     </select>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-5">
                 <div class="form-group col-sm">
-                    <label for="originalText">Text to Translate:</label>
+                    <label for="originalText" class="form-label">Text to Translate:</label>
                     <textarea id="originalText " name="originalText" class="form-control" rows="5" placeholder="Type text to translate here...">@ViewData["OriginalText"]</textarea>
                 </div>
                 <div class="form-group col-sm">
-                    <label for="translatedText">Translated Text:</label>
+                    <label for="translatedText" class="form-label">Translated Text:</label>
                     <textarea id="translatedText" name="translatedText" class="form-control" rows="5" readonly>@ViewData["TranslatedText"]</textarea>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="mt-5">
                 <button type="submit" class="btn btn-primary">Translate</button>
+            </div>
+            <div class="mt-2">
+                <button type="button" class="btn btn-secondary" onclick="handleCopyClick()">Copy Translation to Clipboard</button>
             </div>
         </form>
     </div>
-   
 </div>
