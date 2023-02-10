@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Encodings.Web;
 using Translator.Data;
 using Translator.Models;
+using Calls.Models;
 using Newtonsoft.Json;
 
 namespace Translator.Controllers
@@ -29,6 +30,7 @@ namespace Translator.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(IFormCollection collection)  
         {
             ViewData["OriginalText"] = collection["originalText"];
