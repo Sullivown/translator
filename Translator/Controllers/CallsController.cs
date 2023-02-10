@@ -20,9 +20,9 @@ namespace Translator.Controllers
         }
 
         // GET: Calls
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            ViewBag.OriginalTextSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
             ViewBag.OriginalTextSortParm = sortOrder == "originalText" ? "originalText_desc" : "originalText";
             ViewBag.TranslatorTypeSortParm = sortOrder == "translatorType" ? "translatorType_desc" : "translatorType";
             ViewBag.IsSuccessfulSortParm = sortOrder == "isSuccessful" ? "isSuccessful_desc" : "isSuccessful";
@@ -30,6 +30,13 @@ namespace Translator.Controllers
             ViewBag.DateCreatedSortParm = sortOrder == "dateCreated" ? "dateCreated_desc" : "dateCreated";
             var calls = from c in _context.Calls
                            select c;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                calls = calls.Where(c => c.Id.ToString().Equals(searchString) || c.OriginalText.Contains(searchString)
+                                       || c.TranslatorType.Contains(searchString) || c.TranslatedText.Contains(searchString) || c.DateCreated.ToString().Contains(searchString));
+            }
+
             switch (sortOrder)
             {
                 case "id_desc":
