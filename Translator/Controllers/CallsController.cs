@@ -40,7 +40,7 @@ namespace Translator.Controllers
             switch (sortOrder)
             {
                 case "id_desc":
-                    calls = calls.OrderByDescending(c => c.OriginalText);
+                    calls = calls.OrderByDescending(c => c.Id);
                     break;
                 case "originalText":
                     calls = calls.OrderBy(c => c.OriginalText);

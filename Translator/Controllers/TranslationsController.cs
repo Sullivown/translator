@@ -20,10 +20,43 @@ namespace Translator.Controllers
         }
 
         // GET: Translations
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-              return _context.Translation != null ? 
-                          View(await _context.Translation.ToListAsync()) :
+            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewBag.NameSortParm = sortOrder == "name" ? "name_desc" : "name";
+            ViewBag.UrlSortParm = sortOrder == "url" ? "url_desc" : "url";
+            var translations = from t in _context.Translation
+                        select t;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                translations = translations.Where(t => t.Id.ToString().Equals(searchString) || t.Name.Contains(searchString)
+                                       || t.Url.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    translations = translations.OrderByDescending(t => t.Id);
+                    break;
+                case "name":
+                    translations = translations.OrderBy(t => t.Name);
+                    break;
+                case "name_desc":
+                    translations = translations.OrderByDescending(t => t.Name);
+                    break;
+                case "url":
+                    translations = translations.OrderBy(t => t.Url);
+                    break;
+                case "url_desc":
+                    translations = translations.OrderByDescending(t => t.Url);
+                    break;
+                default:
+                    translations = translations.OrderBy(t => t.Id);
+                    break;
+            }
+
+            return _context.Translation != null ? 
+                          View(await translations.ToListAsync()) :
                           Problem("Entity set 'TranslatorContext.Translation'  is null.");
         }
 
