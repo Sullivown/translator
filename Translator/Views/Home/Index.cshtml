@@ -9,19 +9,35 @@
     <h1 class="display-4">Translator</h1>
     <h2>What would you like to translate today?</h2>
 
-    <p>@ViewData["Message"]</p>
-    <p>@ViewData["TranslatorType"]</p>
-    <p>@ViewData["OriginalText"]</p>
-    <p>@ViewData["TranslatedText"]</p>
-
-    <form method="post">
-        <select name="translatorType">
-            @foreach (var item in Model)
-            {
-                <option value=@item.Url>@item.Name</option>
-            }
-        </select>
-        <textarea name="originalText"></textarea>
-        <button type="submit">Translate</button>
-    </form>
+    <div class="container">
+        <form method="post">
+            <div class="form-group row justify-content-md-center">
+                <div class="col-2">
+                    <label for="translator">Choose Translator:</label>
+                </div>
+                <div class="col-2">
+                    <select id="translator" name="translatorUrl" class="form-control">
+                        @foreach (var item in Model)
+                        {
+                            <option value=@item.Url>@item.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm">
+                    <label for="originalText">Text to Translate:</label>
+                    <textarea id="originalText " name="originalText" class="form-control" rows="5" placeholder="Type text to translate here...">@ViewData["OriginalText"]</textarea>
+                </div>
+                <div class="form-group col-sm">
+                    <label for="translatedText">Translated Text:</label>
+                    <textarea id="translatedText" name="translatedText" class="form-control" rows="5" readonly>@ViewData["TranslatedText"]</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Translate</button>
+            </div>
+        </form>
+    </div>
+   
 </div>

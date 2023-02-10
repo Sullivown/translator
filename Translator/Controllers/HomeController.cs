@@ -22,7 +22,6 @@ namespace Translator.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ViewData["Message"] = "Hello, this is a test message!";
             return _context.Translation != null ?
                           View(await _context.Translation.ToListAsync()) :
                           Problem("Entity set 'TranslatorContext.Translation'  is null.");
@@ -34,26 +33,33 @@ namespace Translator.Controllers
         {
             ViewData["OriginalText"] = collection["originalText"];
             ViewData["TranslatorType"] = collection["translatorType"];
-            
+
+            // Make API call
             using (var client = new HttpClient())
             {
-                var uri = new Uri(collection["translatorType"] + "?text=" + collection["originalText"]);
+                var uri = new Uri(collection["translatorUrl"] + "?text=" + collection["originalText"]);
 
                 var response = await client.GetAsync(uri);
+
+                var responseStatus = (int)response.StatusCode;
 
                 string textResult = await response.Content.ReadAsStringAsync();
 
                 var result = JsonConvert.DeserializeObject<dynamic>(textResult);
 
-                if (result?.error)
+                // If error, show error message
+                if (responseStatus != 200)
                 {
                     ViewData["translatedText"] = result?.error.message;
+                } else
+                {
+                    ViewData["translatedText"] = result?.contents.translated;
+
                 }
 
-                ViewData["translatedText"] = result?.content.translated;
+                
             }
 
-            // Make API call
             return _context.Translation != null ?
                View(await _context.Translation.ToListAsync()) :
                Problem("Entity set 'TranslatorContext.Translation'  is null.");
