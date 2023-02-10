@@ -13,19 +13,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.OriginalText)
+                @Html.ActionLink("Id", "Index", new { sortOrder = ViewBag.OriginalTextSortParm })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TranslatorType)
+                @Html.ActionLink("Original Text", "Index", new { sortOrder = ViewBag.OriginalTextSortParm })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsSuccessful)
+                @Html.ActionLink("Translator Type", "Index", new { sortOrder = ViewBag.TranslatorTypeSortParm })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TranslatedText)
+                @Html.ActionLink("Successful?", "Index", new { sortOrder = ViewBag.IsSuccessfulSortParm })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
+                @Html.ActionLink("Translated Text", "Index", new { sortOrder = ViewBag.TranslatedTextSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Date Created", "Index", new { sortOrder = ViewBag.DateCreatedSortParm })
             </th>
             <th></th>
         </tr>
@@ -33,6 +36,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OriginalText)
             </td>

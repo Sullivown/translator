@@ -20,10 +20,57 @@ namespace Translator.Controllers
         }
 
         // GET: Calls
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-              return _context.Calls != null ? 
-                          View(await _context.Calls.ToListAsync()) :
+            ViewBag.OriginalTextSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewBag.OriginalTextSortParm = sortOrder == "originalText" ? "originalText_desc" : "originalText";
+            ViewBag.TranslatorTypeSortParm = sortOrder == "translatorType" ? "translatorType_desc" : "translatorType";
+            ViewBag.IsSuccessfulSortParm = sortOrder == "isSuccessful" ? "isSuccessful_desc" : "isSuccessful";
+            ViewBag.translatedTextSortParm = sortOrder == "translatedText" ? "translatedText_desc" : "translatedText";
+            ViewBag.DateCreatedSortParm = sortOrder == "dateCreated" ? "dateCreated_desc" : "dateCreated";
+            var calls = from c in _context.Calls
+                           select c;
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    calls = calls.OrderByDescending(c => c.OriginalText);
+                    break;
+                case "originalText":
+                    calls = calls.OrderBy(c => c.OriginalText);
+                    break;
+                case "originalText_desc":
+                    calls = calls.OrderByDescending(c => c.OriginalText);
+                    break;
+                case "translatorType":
+                    calls = calls.OrderBy(c => c.TranslatorType);
+                    break;
+                case "translatorType_desc":
+                    calls = calls.OrderByDescending(c => c.TranslatorType);
+                    break;
+                case "isSuccessful":
+                    calls = calls.OrderBy(c => c.IsSuccessful);
+                    break;
+                case "isSuccessful_desc":
+                    calls = calls.OrderByDescending(c => c.IsSuccessful);
+                    break;
+                case "translatedText":
+                    calls = calls.OrderBy(c => c.TranslatedText);
+                    break;
+                case "translatedText_desc":
+                    calls = calls.OrderByDescending(c => c.TranslatedText);
+                    break;
+                case "dateCreated":
+                    calls = calls.OrderBy(c => c.DateCreated);
+                    break;
+                case "dateCreated_desc":
+                    calls = calls.OrderByDescending(c => c.DateCreated);
+                    break;
+                default:
+                    calls = calls.OrderBy(c => c.Id);
+                    break;
+            }
+            return _context.Calls != null ? 
+                          View(await calls.ToListAsync()) :
                           Problem("Entity set 'TranslatorContext.Calls'  is null.");
         }
 
