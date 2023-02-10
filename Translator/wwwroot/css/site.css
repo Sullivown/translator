@@ -18,5 +18,20 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    color: #4d5b9e;
+    background-color: #f5f7fb;
+}
+
+.navbar-brand {
+    color: #4d5b9e !important;
+}
+
+.btn-primary {
+    background-color: #4d5b9e;
+    color: #f5f7fb;
+}
+
+.btn-primary:hover {
+    background-color: #3d487a;
 }

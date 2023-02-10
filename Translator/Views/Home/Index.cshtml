@@ -23,7 +23,7 @@
 
     <div class="container mt-5">
         <form method="post">
-            <div class="form-group row justify-content-md-center">
+            <div class="form-group row justify-content-center">
                 <div class="col-sm-6 col-lg-3">
                     <label for="translator" class="form-label">Choose Translator:</label>
                     <select id="translator" name="translatorUrl" class="form-control">
@@ -37,18 +37,18 @@
             <div class="row mt-5">
                 <div class="form-group col-sm">
                     <label for="originalText" class="form-label">Text to Translate:</label>
-                    <textarea id="originalText " name="originalText" class="form-control" rows="5" placeholder="Type text to translate here...">@ViewData["OriginalText"]</textarea>
+                    <textarea id="originalText " name="originalText" class="form-control" rows="8" placeholder="Type text to translate here...">@ViewData["OriginalText"]</textarea>
                 </div>
                 <div class="form-group col-sm">
                     <label for="translatedText" class="form-label">Translated Text:</label>
-                    <textarea id="translatedText" name="translatedText" class="form-control" rows="5" readonly>@ViewData["TranslatedText"]</textarea>
+                    <textarea id="translatedText" name="translatedText" class="form-control" rows="8" readonly>@ViewData["TranslatedText"]</textarea>
                 </div>
             </div>
             <div class="mt-5">
-                <button type="submit" class="btn btn-primary">Translate</button>
+                <button type="submit" class="btn btn-primary btn-lg">Translate</button>
             </div>
             <div class="mt-2">
-                <button type="button" class="btn btn-secondary" onclick="handleCopyClick()">Copy Translation to Clipboard</button>
+                <button type="button" class="btn btn-secondary btn-lg" onclick="handleCopyClick()">Copy Translation to Clipboard</button>
             </div>
         </form>
     </div>
