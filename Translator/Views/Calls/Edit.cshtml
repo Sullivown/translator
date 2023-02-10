@@ -1,0 +1,54 @@
+﻿@model Translator.Models.Calls
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Calls</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="OriginalText" class="control-label"></label>
+                <input asp-for="OriginalText" class="form-control" />
+                <span asp-validation-for="OriginalText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TranslatorType" class="control-label"></label>
+                <input asp-for="TranslatorType" class="form-control" />
+                <span asp-validation-for="TranslatorType" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsSuccessful" /> @Html.DisplayNameFor(model => model.IsSuccessful)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="TranslatedText" class="control-label"></label>
+                <input asp-for="TranslatedText" class="form-control" />
+                <span asp-validation-for="TranslatedText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateCreated" class="control-label"></label>
+                <input asp-for="DateCreated" class="form-control" />
+                <span asp-validation-for="DateCreated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

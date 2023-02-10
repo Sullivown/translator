@@ -15,5 +15,7 @@ namespace Translator.Data
         }
 
         public DbSet<Translator.Models.Translation> Translation { get; set; } = default!;
+
+        public DbSet<Translator.Models.Calls> Calls { get; set; } = default!;
     }
 }
