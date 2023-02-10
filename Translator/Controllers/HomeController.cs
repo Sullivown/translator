@@ -38,6 +38,7 @@ namespace Translator.Controllers
             // Make API call
             using (var client = new HttpClient())
             {
+                // Call API with form data
                 var uri = new Uri(collection["translatorUrl"] + "?text=" + collection["originalText"]);
 
                 var response = await client.GetAsync(uri);
@@ -62,8 +63,6 @@ namespace Translator.Controllers
                 }
 
                 // Add call to database
-                
-
                 Calls call = new Calls();
                 call.OriginalText = collection["originalText"];
                 call.TranslatorType = collection["translatorType"];
@@ -80,11 +79,6 @@ namespace Translator.Controllers
 
                 _context.Add(call);
                 await _context.SaveChangesAsync();
-
-
-
-
-
             }
 
             return _context.Translation != null ?
