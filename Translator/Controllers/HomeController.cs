@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 using System.Text.Encodings.Web;
 using Translator.Data;
 using Translator.Models;
-using Calls.Models;
 using Newtonsoft.Json;
 
 namespace Translator.Controllers
@@ -49,6 +48,8 @@ namespace Translator.Controllers
 
                 var result = JsonConvert.DeserializeObject<dynamic>(textResult);
 
+                var isSuccessful = false;
+
                 // If error, show error message
                 if (responseStatus != 200)
                 {
@@ -56,10 +57,34 @@ namespace Translator.Controllers
                 } else
                 {
                     ViewData["translatedText"] = result?.contents.translated;
+                    isSuccessful = true;
 
                 }
 
+                // Add call to database
                 
+
+                Calls call = new Calls();
+                call.OriginalText = collection["originalText"];
+                call.TranslatorType = collection["translatorType"];
+                call.IsSuccessful = isSuccessful;
+                call.DateCreated= DateTime.Now;
+
+                if (isSuccessful)
+                {
+                    call.TranslatedText = result?.contents.translated;
+                }
+                else {
+                    call.TranslatedText = null;
+                }
+
+                _context.Add(call);
+                await _context.SaveChangesAsync();
+
+
+
+
+
             }
 
             return _context.Translation != null ?
