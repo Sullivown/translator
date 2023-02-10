@@ -33,7 +33,6 @@ namespace Translator.Controllers
         public async Task<IActionResult> Index(IFormCollection collection)  
         {
             ViewData["OriginalText"] = collection["originalText"];
-            ViewData["TranslatorType"] = collection["translatorType"];
 
             // Make API call
             using (var client = new HttpClient())
@@ -65,7 +64,7 @@ namespace Translator.Controllers
                 // Add call to database
                 Calls call = new Calls();
                 call.OriginalText = collection["originalText"];
-                call.TranslatorType = collection["translatorType"];
+                call.TranslatorType = collection["translatorUrl"];
                 call.IsSuccessful = isSuccessful;
                 call.DateCreated= DateTime.Now;
 
