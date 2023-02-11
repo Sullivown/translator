@@ -110,7 +110,7 @@ namespace Translator.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,OriginalText,TranslatorType,IsSuccessful,TranslatedText,DateCreated")] Calls calls)
+        public async Task<IActionResult> Create([Bind("Id,OriginalText,TranslatorType,IsSuccessful,TranslatedText,DateCreated")] Call calls)
         {
             if (ModelState.IsValid)
             {
@@ -142,7 +142,7 @@ namespace Translator.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,OriginalText,TranslatorType,IsSuccessful,TranslatedText,DateCreated")] Calls calls)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,OriginalText,TranslatorType,IsSuccessful,TranslatedText,DateCreated")] Call calls)
         {
             if (id != calls.Id)
             {

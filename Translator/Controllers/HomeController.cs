@@ -62,7 +62,7 @@ namespace Translator.Controllers
                 }
 
                 // Add call to database
-                Calls call = new Calls();
+                Call call = new Call();
                 call.OriginalText = collection["originalText"];
                 call.TranslatorType = collection["translatorUrl"];
                 call.IsSuccessful = isSuccessful;
