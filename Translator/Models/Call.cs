@@ -1,6 +1,6 @@
 ﻿namespace Translator.Models
 {
-    public class Calls
+    public class Call
     {
         public int Id { get; set; }
         public string? OriginalText { get; set; }
