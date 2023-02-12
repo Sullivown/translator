@@ -6,7 +6,7 @@ An ASP.NET MVC application that takes a string from the user and returns said st
 - Translate text to chosen translation
 - Additional translations can be added easily via the online form
 - Record API calls and responses in view in the Call Logger
-- Translations and calls ca be sorted and filtered via the search field
+- Translations and calls can be sorted and filtered via the search field
 
 
 # User Guide
