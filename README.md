@@ -42,6 +42,7 @@ Call fields:
 | Date Created | Date/time of the call |
 
 # Future Improvements & Features
+- Add user auth + secure Call logger and Translation management routes
 - Add unit tests
 - Translator and calls search/filtering using AJAX
 - Add new feature to allow translation back to original text
